@@ -2,7 +2,7 @@ import random
 import datetime
 
 class Zoo:
-    def __init__(self):
+    def _init_(self):
         self.empleados = []
         self.visitantes = []
         self.visitas = []
@@ -293,7 +293,7 @@ class Zoo:
                 print("Opción no válida. Por favor, ingrese una opción válida.")
 
 class Empleado:
-    def __init__(self, nombre, apellidos, fecha_nacimiento, curp, cargo, salario):
+    def _init_(self, nombre, apellidos, fecha_nacimiento, curp, cargo, salario):
         self.id = self.generar_id_aleatorio()
         self.nombre = nombre
         self.apellidos = apellidos
@@ -309,13 +309,13 @@ class Empleado:
         num = random.randint(1, 1000)
         return "E" + str(num)
 
-    def __str__(self):
+    def _str_(self):
         return f"Empleado(id='{self.id}', nombre='{self.nombre}', apellidos='{self.apellidos}', fecha_nacimiento='{self.fecha_nacimiento}', curp='{self.curp}', cargo='{self.cargo}', salario={self.salario})"
 
 class Visitante:
     counter = 1
 
-    def __init__(self, nombre, apellidos, fecha_nacimiento, curp):
+    def _init_(self, nombre, apellidos, fecha_nacimiento, curp):
         self.id = "V" + str(Visitante.counter)
         Visitante.counter += 1
         self.nombre = nombre
@@ -326,13 +326,13 @@ class Visitante:
     def getId(self):
         return self.id
 
-    def __str__(self):
+    def _str_(self):
         return f"Visitante(id='{self.id}', nombre='{self.nombre}', apellidos='{self.apellidos}', fecha_nacimiento='{self.fecha_nacimiento}', curp='{self.curp}')"
 
 class Visita:
     counter = 1
 
-    def __init__(self, guia, visitantes, costo_total, fecha_visita, cantidad_ninos, cantidad_adultos):
+    def _init_(self, guia, visitantes, costo_total, fecha_visita, cantidad_ninos, cantidad_adultos):
         self.id = "VIS" + str(Visita.counter)
         Visita.counter += 1
         self.guia = guia
@@ -345,11 +345,11 @@ class Visita:
     def getId(self):
         return self.id
 
-    def __str__(self):
+    def _str_(self):
         return f"Visita(id='{self.id}', guia='{self.guia}', visitantes={self.visitantes}, costo_total={self.costo_total}, fecha_visita='{self.fecha_visita}', cantidad_ninos={self.cantidad_ninos}, cantidad_adultos={self.cantidad_adultos})"
 
 class Animal:
-    def __init__(self, tipo_animal, fecha_nacimiento, fecha_llegada, peso, enfermedades,
+    def _init_(self, tipo_animal, fecha_nacimiento, fecha_llegada, peso, enfermedades,
                  frecuencia_alimentacion, tipo_alimentacion, vacunas):
         self.id = self.generar_id_aleatorio()
         self.tipo_animal = tipo_animal
@@ -368,11 +368,11 @@ class Animal:
     def getId(self):
         return self.id
 
-    def __str__(self):
+    def _str_(self):
         return f"Animal(id='{self.id}', tipo_animal='{self.tipo_animal}', fecha_nacimiento='{self.fecha_nacimiento}', fecha_llegada='{self.fecha_llegada}', peso={self.peso}, enfermedades={self.enfermedades}, frecuencia_alimentacion='{self.frecuencia_alimentacion}', tipo_alimentacion='{self.tipo_alimentacion}', vacunas={self.vacunas})"
 
 class Mantenimiento:
-    def __init__(self, empleado_encargado, id_animal, proceso_realizado, observaciones):
+    def _init_(self, empleado_encargado, id_animal, proceso_realizado, observaciones):
         self.empleado_encargado = empleado_encargado
         self.id_animal = id_animal
         self.proceso_realizado = proceso_realizado
@@ -384,7 +384,7 @@ class Mantenimiento:
         fecha_actual = datetime.datetime.now()
         return fecha_actual.strftime(formato)
 
-    def __str__(self):
+    def _str_(self):
         return f"Mantenimiento(empleado_encargado='{self.empleado_encargado}', id_animal='{self.id_animal}', proceso_realizado='{self.proceso_realizado}', observaciones='{self.observaciones}', fecha_proceso='{self.fecha_proceso}')"
 
 def main():
@@ -428,6 +428,5 @@ def main():
             print("Saliendo del sistema...")
         else:
             print("Opción no válida")
-
 if __name__ == "__main__":
     main()
