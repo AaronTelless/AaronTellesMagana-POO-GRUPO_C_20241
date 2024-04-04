@@ -77,7 +77,7 @@ Este proyecto consiste en un sistema de administración para el Zoológico de Mo
 Este sistema proporciona una solución completa para la gestión del zoológico, permitiendo al director llevar un control detallado del personal, visitantes y animales, así como de las operaciones diarias del zoológico.
 
 
-## INTEGANTES 
--Carlos Emiliano Magaña Huipe
--Iker Solis Ramirez
--Aaron Telles Magaña
+## INTEGRANTES 
+- Carlos Emiliano Magaña Huipe
+- Iker Solis Ramirez
+- Aaron Telles Magaña
