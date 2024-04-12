@@ -1,7 +1,6 @@
 package Usuarios;
 
 import utils.Rol;
-
 import java.time.LocalDate;
 
 public class Asistente extends Usuario {
@@ -10,8 +9,8 @@ public class Asistente extends Usuario {
     private double sueldo;
     private String INE;
 
-    public Asistente (String nombre, String apellido, String telefono){
-        super (nombre, apellido, telefono, Rol.ASISTENTE);
+    public Asistente (String nombre, String apellido, String telefono, String nombreUsuario, String contrasena){
+        super (nombre, apellido, telefono, Rol.ASISTENTE, nombreUsuario, contrasena);
         this.fechainicio = LocalDate.now();
         this.sueldo = sueldo;
         this.INE = INE;
