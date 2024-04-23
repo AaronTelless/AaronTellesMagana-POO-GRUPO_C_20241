@@ -1,4 +1,5 @@
 package usuarios;
+
 import usuarios.utils.Rol;
 
 public class Usuario {
