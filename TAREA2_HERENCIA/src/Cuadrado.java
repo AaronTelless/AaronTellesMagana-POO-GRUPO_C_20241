@@ -1,4 +1,4 @@
-class Cuadrado extends Shape {
+public class Cuadrado implements Shape {
     double lado;
 
     Cuadrado(double lado) {
@@ -6,12 +6,12 @@ class Cuadrado extends Shape {
     }
 
     @Override
-    double calcularArea() {
+    public double calcularArea() {
         return lado * lado;
     }
 
     @Override
-    double calcularPerimetro() {
+    public double calcularPerimetro() {
         return 4 * lado;
     }
 }

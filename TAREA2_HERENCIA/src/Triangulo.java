@@ -1,4 +1,4 @@
-class Triangulo extends Shape {
+public class Triangulo implements Shape {
     double lado1;
     double lado2;
     double lado3;
@@ -10,13 +10,13 @@ class Triangulo extends Shape {
     }
 
     @Override
-    double calcularArea() {
+    public double calcularArea() {
         double s = (lado1 + lado2 + lado3) / 2;
         return Math.sqrt(s * (s - lado1) * (s - lado2) * (s - lado3));
     }
 
     @Override
-    double calcularPerimetro() {
-        return (lado1 + lado2 + lado3);
+    public double calcularPerimetro() {
+        return lado1 + lado2 + lado3;
     }
 }

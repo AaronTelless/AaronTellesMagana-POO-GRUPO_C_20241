@@ -1,4 +1,4 @@
-class Rectangulo extends Shape {
+public class Rectangulo implements Shape {
     double largo;
     double ancho;
 
@@ -8,12 +8,12 @@ class Rectangulo extends Shape {
     }
 
     @Override
-    double calcularArea() {
+    public double calcularArea() {
         return largo * ancho;
     }
 
     @Override
-    double calcularPerimetro() {
+    public double calcularPerimetro() {
         return 2 * (largo + ancho);
     }
 }

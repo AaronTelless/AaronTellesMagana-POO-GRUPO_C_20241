@@ -19,5 +19,6 @@ public class Main {
 
         System.out.println("\nTriangulo:");
         System.out.println("Area: " + triangulo.calcularArea());
-        System.out.println("Perimetro: " + triangulo.calcularPerimetro());}
+        System.out.println("Perimetro: " + triangulo.calcularPerimetro());
+    }
 }

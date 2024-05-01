@@ -1,4 +1,4 @@
-class Circulo extends Shape {
+public class Circulo implements Shape {
     double radio;
 
     Circulo(double radio) {
@@ -6,12 +6,12 @@ class Circulo extends Shape {
     }
 
     @Override
-    double calcularArea() {
+    public double calcularArea() {
         return Math.PI * radio * radio;
     }
 
     @Override
-    double calcularPerimetro() {
+    public double calcularPerimetro() {
         return 2 * Math.PI * radio;
     }
 }
