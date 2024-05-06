@@ -2,35 +2,29 @@ package usuarios;
 
 import libreria.Libreria;
 import libreria.utils.DatosComun;
-import usuarios.utils.EmpleadoUtils;
 import usuarios.utils.Rol;
-import usuarios.Asistente;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
-- Lo visto en clase hoy
-- Registrar asistentes (gerente)
-- Eliminar clientes, asistentes y gerente
-- Listado de asistentes y gerentes
-- Eliminacion de gerentes solo se puede hacer por otro gerente
- */
-
-public class Asistente extends Usuario implements EmpleadoUtils {
+public abstract class Asistente extends Usuario {
     private double sueldo;
-    private String RFC;
-    private LocalDate fechaInicio;
+    private String rfc;
+    private String fechaInicio;
 
-    public Asistente(String nombre, String apellido, String telefono, double sueldo, String RFC, String nombreUsuario, String contrasena) {
-        super(nombre, apellido, telefono, Rol.ASISTENTE, nombreUsuario, contrasena);
-        this.fechaInicio = LocalDate.now();
-        this.RFC = RFC;
+    public Asistente(String nombre, String apellido, String telefono, double sueldo, String rfc, String fechaInicio, String nombreUsuario, String contrasena, String fechaNacimiento) {
+        super(nombre, apellido, telefono, Rol.ASISTENTE, nombreUsuario, contrasena, fechaNacimiento);
         this.sueldo = sueldo;
+        this.rfc = rfc;
+        this.fechaInicio = fechaInicio;
     }
+
+    public Asistente(String juan, String rivera, String number, double sueldo, String juanito1234123, String juan123) {
+    }
+
     @Override
     public String toString() {
-        return String.format("%s , fecha inicio: %s, RFC: %s, Sueldo del asistente: %.2f", super.toString(), fechaInicio, RFC, sueldo);
+        return super.toString() + String.format(", sueldo: %.2f, RFC: %s, fecha inicio: %s", sueldo, rfc, fechaInicio);
     }
 
     public static void registrarAsistente() {
@@ -42,16 +36,22 @@ public class Asistente extends Usuario implements EmpleadoUtils {
         String telefono = datosComun.get(2);
         String nombreUsuario = datosComun.get(3);
         String contrasena = datosComun.get(4);
+        String fechaNacimiento = datosComun.get(5);
 
         System.out.println("Ingresa el sueldo: ");
         double sueldo = scanner.nextDouble();
+        scanner.nextLine(); // Limpiar el buffer del scanner
 
         System.out.println("Ingresa tu RFC: ");
-        String RFC = scanner.nextLine();
+        String rfc = scanner.nextLine();
 
-        usuarios.Asistente asistente = new usuarios.Asistente(nombre, apellido, telefono, sueldo, RFC, nombreUsuario, contrasena);
+        System.out.println("Ingresa la fecha de inicio: ");
+        String fechaInicio = scanner.nextLine();
+
+        Asistente asistente = new Asistente(nombre, apellido, telefono, sueldo, rfc, fechaInicio, nombreUsuario, contrasena, fechaNacimiento);
+
         if (!Libreria.usuarios.containsKey(Rol.ASISTENTE)) {
-            Libreria.usuarios.put(Rol.ASISTENTE, new ArrayList<Usuario>());
+            Libreria.usuarios.put(Rol.ASISTENTE, new ArrayList<>());
         }
 
         Libreria.usuarios.get(Rol.ASISTENTE).add(asistente);
@@ -62,28 +62,28 @@ public class Asistente extends Usuario implements EmpleadoUtils {
     public static void mostrarAsistentes() {
         System.out.println("\nAsistentes en la biblioteca");
         for (Usuario usuario : Libreria.usuarios.get(Rol.ASISTENTE)) {
-            usuarios.Asistente asistente = (usuarios.Asistente) usuario;
+            Asistente asistente = (Asistente) usuario;
             System.out.println(asistente.toString());
             System.out.println(" ");
         }
     }
 
     public static void eliminarAsistentes() {
-        int eliminarAsistente = 0;
-        boolean asistenteExistente = true;
+        int eliminarAsistente;
+        boolean asistenteExistente;
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEliminar asistentes del sistema");
         System.out.println("Esta es la lista de asistentes registrados: ");
         for (Usuario usuario : Libreria.usuarios.get(Rol.ASISTENTE)) {
-            usuarios.Asistente asistente = (usuarios.Asistente) usuario;
-            System.out.println(usuario.toString());
+            Asistente asistente = (Asistente) usuario;
+            System.out.println(asistente.toString());
             System.out.println(" ");
         }
 
         do {
-            System.out.println("Ingrese el ID del cliente que desee eliminar del sistema: ");
-            eliminarAsistente = scanner.nextInt();
             asistenteExistente = false;
+            System.out.println("Ingrese el ID del asistente que desee eliminar del sistema: ");
+            eliminarAsistente = scanner.nextInt();
 
             ArrayList<Usuario> eliminar = Libreria.usuarios.get(Rol.ASISTENTE);
             for (int i = 0; i < eliminar.size(); i++) {
@@ -97,19 +97,9 @@ public class Asistente extends Usuario implements EmpleadoUtils {
                 }
             }
             if (!asistenteExistente) {
-                System.out.println("El id que ingreso no pertecene a ningun asistente registrado. Intenta de nuevo.");
+                System.out.println("El ID que ingresó no pertenece a ningún asistente registrado. Intenta de nuevo.");
                 System.out.println(" ");
-                break;
             }
-        } while (asistenteExistente);
-    }
-
-    @Override
-    public void checarEntrada(){
-        System.out.println("CHECAR ENTRADA POR CORREO");
-    }
-    @Override
-    public void checarSalida(){
-        System.out.println("CHECAR SALIDA POR CORREO");
+        } while (!asistenteExistente);
     }
 }

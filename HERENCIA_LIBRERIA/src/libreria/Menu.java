@@ -21,15 +21,15 @@ public class Menu {
             System.out.println("Ingresa tu contrasena: ");
             String contrasena = scanner.nextLine();
 
-            Usuario usuarioActual = libreria.verificarInicioSesion(usuario, contrasena) ;
-            if(usuarioActual != null) {
+            Usuario usuarioActual = libreria.verificarInicioSesion(usuario, contrasena);
+            if (usuarioActual != null) {
                 datosCorrectos = true;
                 UsuarioEnSesion.obtenerInstancia().setUsuarioActual(usuarioActual);
                 seleccionarMenu();
             } else {
                 System.out.printf("Usuario o contrasena incorrectos. Intenta de nuevo.\n");
             }
-        }while(!datosCorrectos);
+        } while (!datosCorrectos);
     }
 
     private void seleccionarMenu() {
@@ -55,7 +55,6 @@ public class Menu {
             opcion = scanner.nextInt();
 
             switch (opcion) {
-
                 case 1:
                     System.out.println("Elegiste la opcion 1");
                     libreria.mostrarLibros();
@@ -65,18 +64,59 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Elegiste la opcion 3");
+                    mostrarDatosCliente();
                     break;
                 case 4:
                     System.out.println("Elegiste la opcion 4");
+                    editarInformacionCliente();
                     break;
                 case 0:
-                    System.out.println("Elegiste la opcion 5");
+                    System.out.println("Elegiste la opcion 0");
                     System.out.println("Cerrando sesion...");
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     iniciarSesion();
                     break;
+                default:
+                    System.out.println("Opción no válida");
             }
-        }while(opcion != 0);
+        } while (opcion != 0);
+    }
+
+    private void mostrarDatosCliente() {
+        Usuario cliente = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
+        System.out.println("Datos del Cliente:");
+        System.out.println("Nombre: " + cliente.getNombre());
+        System.out.println("Fecha de Nacimiento: " + cliente.getFechaNacimiento());
+    }
+
+    private void editarInformacionCliente() {
+        Usuario cliente = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Editar información del Cliente:");
+        System.out.println("1. Nombre");
+        System.out.println("2. Fecha de Nacimiento");
+        System.out.println("0. Volver al menú anterior");
+        int opcion = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+
+        switch (opcion) {
+            case 1:
+                System.out.println("Ingrese el nuevo nombre: ");
+                String nuevoNombre = scanner.nextLine();
+                cliente.setNombre(nuevoNombre);
+                System.out.println("Nombre actualizado correctamente.");
+                break;
+            case 2:
+                System.out.println("Ingrese la nueva fecha de nacimiento (AAAA-MM-DD): ");
+                String nuevaFecha = scanner.nextLine();
+                cliente.setFechaNacimiento(nuevaFecha);
+                System.out.println("Fecha de Nacimiento actualizada correctamente.");
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Opción no válida");
+        }
     }
 
     private void mostrarMenuAsistente() {
