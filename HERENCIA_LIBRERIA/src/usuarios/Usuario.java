@@ -1,8 +1,6 @@
 package usuarios;
 
 import usuarios.utils.Rol;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public abstract class Usuario {
 
@@ -14,10 +12,9 @@ public abstract class Usuario {
     private Rol rol;
     private String nombreUsuario;
     private String contrasena;
-    private LocalDate fechaNacimiento;
-    private String FechaNacimiento;
+    private String fechaNacimiento;
 
-    public Usuario(String nombre, String apellido, String telefono, Rol rol, String nombreUsuario, String contrasena, String fechaNacimiento) {
+    public Usuario(String nombre, String apellido, String fechaNacimiento, String telefono, Rol rol, String nombreUsuario, String contrasena) {
         this.id = CANTIDAD_USUARIOS;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -25,36 +22,13 @@ public abstract class Usuario {
         this.rol = rol;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
-
-        // Validar el formato y la validez de la fecha de nacimiento
-        this.fechaNacimiento = validarFechaNacimiento(fechaNacimiento);
-
+        this.fechaNacimiento = fechaNacimiento;
         CANTIDAD_USUARIOS++;
     }
-
-    public Usuario() {
-
-    }
-
-
-    private LocalDate validarFechaNacimiento(String fechaNacimientoString) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoString, formatter);
-            if (fechaNacimiento.isBefore(LocalDate.now()) || fechaNacimiento.isEqual(LocalDate.now())) {
-                return fechaNacimiento;
-            } else {
-                throw new IllegalArgumentException("La fecha de nacimiento no puede ser en el futuro.");
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Formato de fecha de nacimiento incorrecto o inválido.");
-        }
-    }
-
     @Override
     public String toString() {
-        return String.format("Id: %d, Nombre completo: %s %s, Telefono: %s, Rol: %s, Fecha de nacimiento: %s",
-                id, nombre, apellido, telefono, rol, fechaNacimiento);
+        return String.format("Id: %d, Nombre completo: %s %s, Fecha de nacimiento: %s telefono: %s, rol: %s",
+                id, nombre, apellido, fechaNacimiento,telefono, rol);
     }
 
     public String getNombre() {
@@ -113,27 +87,6 @@ public abstract class Usuario {
         this.contrasena = contrasena;
     }
 
-    public String getFechaNacimiento() {
-    return FechaNacimiento;
-    }
-
-    public abstract void setFechaNacimiento(String nuevaFecha);
-    //public String mostrarInfo() {
-    // return String.format("Id: %d, Nombre completo: %s %s, telefono: %s, rol: %s", id, nombre, apellido, telefono, rol);
-    //}
-
-    public static class Asistente extends Usuario {
-        public Asistente(String nombre, String apellido, String telefono, double sueldo, String rfc, String fechaInicio, String nombreUsuario, String contrasena, String fechaNacimiento) {
-            super();
-        }
-
-        public Asistente(String nombre, String apellido, String telefono, Rol rol, String nombreUsuario, String contrasena, String fechaNacimiento) {
-            super(nombre, apellido, telefono, rol, nombreUsuario, contrasena, fechaNacimiento);
-        }
-
-        @Override
-        public void setFechaNacimiento(String nuevaFecha) {
-
-        }
+    public static class Asistente {
     }
 }

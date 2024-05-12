@@ -1,50 +1,44 @@
 package libreria;
 
+import libros.LibroAccion;
+import libros.LibroComedia;
+import libros.LibroTerror;
+import libros.constants.Genero;
 import usuarios.Asistente;
 import usuarios.Cliente;
 import usuarios.Gerente;
 import usuarios.Usuario;
-import usuarios.utils.Libro;
+import libros.Libro;
 import usuarios.utils.Rol;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Libreria {
 
-    public static final HashMap<Rol, ArrayList<Usuario>> usuarios = new HashMap<>();
+    // HashMap
+    public static final HashMap<Rol, ArrayList<Usuario>> usuarios = new HashMap();
 
-    public static final ArrayList<Libro> libros = new ArrayList<>();
+    public static final HashMap<Genero, ArrayList<Libro>> libros = new HashMap();
 
-    public Libreria() {
-        Gerente gerente = new Gerente("Aaron", "Telles", "4432198178", 23300, "TEMA050110HMNLGRA3", "AaronSex", "Gearsofwar2331");
-        if (!usuarios.containsKey(Rol.GERENTE)) {
-            usuarios.put(Rol.GERENTE, new ArrayList<>());
-        }
+    public Libreria () {
+        inicializarHashMaps();
+
+    }
+
+    private void inicializarHashMaps() {
+        Gerente gerente = new Gerente("Aaron", "Telles","2005/10/01" ,"4432198178", 18500, "TEMA050110HMNLGRA",  "AaronSex", "Gearsofwar2331");
+        usuarios.put(Rol.GERENTE, new ArrayList<Usuario>());
         usuarios.get(Rol.GERENTE).add(gerente);
-
-        Asistente asistente = new Asistente("Juan", "Rivera", "4433210999", 1500.0, "JUANITO1234123", "juan123") {
-            @Override
-            public void setFechaNacimiento(String nuevaFecha) {
-
-            }
-        };
-        if (!usuarios.containsKey(Rol.ASISTENTE)) {
-            usuarios.put(Rol.ASISTENTE, new ArrayList<>());
-        }
+        Asistente asistente = new Asistente("Juan", "Rivera", "1998/12/05","4433210999", 1500, "RUJU1234123", "juan123", "12345");
+        usuarios.put(Rol.ASISTENTE, new ArrayList<Usuario>());
         usuarios.get(Rol.ASISTENTE).add(asistente);
-
-        Cliente cliente = new Cliente("Britany", "Ortiz", "4431611799", "BRI1234", "2345678", "1990-05-01") {
-            @Override
-            public void setFechaNacimiento(String nuevaFecha) {
-
-            }
-        };
-        if (!usuarios.containsKey(Rol.CLIENTE)) {
-            usuarios.put(Rol.CLIENTE, new ArrayList<>());
-        }
+        Cliente cliente = new Cliente("Bri", "Ortiz", "2005/10/18","BRI12333222", "bri123", "pumasxd");
+        usuarios.put(Rol.CLIENTE, new ArrayList<Usuario>());
         usuarios.get(Rol.CLIENTE).add(cliente);
+
+        libros.put(Genero.TERROR, new ArrayList<>());
+        libros.put(Genero.ACCION, new ArrayList<>());
+        libros.put(Genero.COMEDIA, new ArrayList<>());
     }
 
     public Usuario verificarInicioSesion(String nombreUsuario, String contrasena) {
@@ -66,6 +60,10 @@ public class Libreria {
         Cliente.mostrarCliente();
     }
 
+    public static void modificarCliente() {
+        Cliente.modificarCliente();
+    }
+
     public static void eliminarClientes() {
         Cliente.eliminarClientes();
     }
@@ -78,24 +76,63 @@ public class Libreria {
         Asistente.mostrarAsistentes();
     }
 
+    public static void modificarAsistente() {
+
+    }
+
     public static void eliminarAsistentes() {
         Asistente.eliminarAsistentes();
     }
 
-    public static void registrarLibros() {
-        Libro.registrarLibros();
+    public static void registrarGerente() {
+        Gerente.registrarGerente();
     }
 
-    public static void mostrarLibros() {
-        Libro.mostrarLibros();
+    public static void mostrarGerentes() {
+        Gerente.mostrarGerentes();
     }
 
-    public void mostrarGerentes() {
+    public static void modificarGerente() {
+
     }
 
-    public void eliminarGerentes() {
+    public static void eliminarGerentes() {
+        Gerente.eliminarGerentes();
     }
 
-    public void registrarGerente() {
+    public static void mostrarLibros() { }
+
+    public static void registrarLibroTerror() {
+        LibroTerror.registrarLibro();
     }
+
+    public static void registrarLibroAccion() {
+        LibroAccion.registrarLibro();
+    }
+
+    public static void registrarLibroComedia() {
+        LibroComedia.registrarLibro();
+    }
+
+    public static void eliminarLibroTerror() {
+        LibroTerror.eliminarLibroTerror();
+    }
+
+    public static void eliminarLibroAccion() {
+        LibroAccion.eliminarLibroAccion();
+    }
+
+    public static void eliminarLibroComedia() {
+        LibroComedia.eliminarLibroComedia();
+    }
+
+    public static void mostrarLibroTerror() {
+        LibroTerror.menuMostrarLibroTerror();
+    }
+
+    public static void mostrarLibroAccion() {
+        LibroAccion.menuMostrarLibroAccion();
+    }
+
+    public static void mostrarLibroComedia() {}
 }

@@ -1,7 +1,11 @@
 package libreria;
 
+import libros.LibroAccion;
+import libros.LibroTerror;
 import usuarios.Usuario;
 import utils.UsuarioEnSesion;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -21,15 +25,15 @@ public class Menu {
             System.out.println("Ingresa tu contrasena: ");
             String contrasena = scanner.nextLine();
 
-            Usuario usuarioActual = libreria.verificarInicioSesion(usuario, contrasena);
-            if (usuarioActual != null) {
+            Usuario usuarioActual = libreria.verificarInicioSesion(usuario, contrasena) ;
+            if(usuarioActual != null) {
                 datosCorrectos = true;
                 UsuarioEnSesion.obtenerInstancia().setUsuarioActual(usuarioActual);
                 seleccionarMenu();
             } else {
                 System.out.printf("Usuario o contrasena incorrectos. Intenta de nuevo.\n");
             }
-        } while (!datosCorrectos);
+        }while(!datosCorrectos);
     }
 
     private void seleccionarMenu() {
@@ -55,6 +59,7 @@ public class Menu {
             opcion = scanner.nextInt();
 
             switch (opcion) {
+
                 case 1:
                     System.out.println("Elegiste la opcion 1");
                     libreria.mostrarLibros();
@@ -64,59 +69,18 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Elegiste la opcion 3");
-                    mostrarDatosCliente();
                     break;
                 case 4:
                     System.out.println("Elegiste la opcion 4");
-                    editarInformacionCliente();
                     break;
                 case 0:
-                    System.out.println("Elegiste la opcion 0");
+                    System.out.println("Elegiste la opcion 5");
                     System.out.println("Cerrando sesion...");
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     iniciarSesion();
                     break;
-                default:
-                    System.out.println("Opción no válida");
             }
-        } while (opcion != 0);
-    }
-
-    private void mostrarDatosCliente() {
-        Usuario cliente = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
-        System.out.println("Datos del Cliente:");
-        System.out.println("Nombre: " + cliente.getNombre());
-        System.out.println("Fecha de Nacimiento: " + cliente.getFechaNacimiento());
-    }
-
-    private void editarInformacionCliente() {
-        Usuario cliente = UsuarioEnSesion.obtenerInstancia().getUsuarioActual();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Editar información del Cliente:");
-        System.out.println("1. Nombre");
-        System.out.println("2. Fecha de Nacimiento");
-        System.out.println("0. Volver al menú anterior");
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-
-        switch (opcion) {
-            case 1:
-                System.out.println("Ingrese el nuevo nombre: ");
-                String nuevoNombre = scanner.nextLine();
-                cliente.setNombre(nuevoNombre);
-                System.out.println("Nombre actualizado correctamente.");
-                break;
-            case 2:
-                System.out.println("Ingrese la nueva fecha de nacimiento (AAAA-MM-DD): ");
-                String nuevaFecha = scanner.nextLine();
-                cliente.setFechaNacimiento(nuevaFecha);
-                System.out.println("Fecha de Nacimiento actualizada correctamente.");
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Opción no válida");
-        }
+        }while(opcion != 0);
     }
 
     private void mostrarMenuAsistente() {
@@ -146,45 +110,184 @@ public class Menu {
             switch (opcion) {
 
                 case 1:
-                    System.out.println("Elegiste la opcion 1");
                     libreria.registrarCliente();
                     break;
                 case 2:
-                    System.out.println("Elegiste la opcion 2");
-                    libreria.registrarLibros();
                     break;
                 case 3:
-                    System.out.println("Elegiste la opcion 3");
                     libreria.mostrarClientes();
                     break;
                 case 4:
-                    System.out.println("Elegiste la opcion 4");
-                    libreria.mostrarLibros();
+                    menuRegistrarLibro();
                     break;
                 case 5:
-                    System.out.println("Elegiste la opcion 5");
                     break;
                 case 6:
-                    System.out.println("Elegiste la opcion 6");
+
                     break;
                 case 7:
-                    System.out.println("Elegiste la opcion 7");
                     libreria.eliminarClientes();
                     break;
                 case 8:
-                    System.out.println("Elegiste la opcion 8");
+                    menuEliminarLibro();
                     break;
                 case 9:
-                    System.out.println("Elegiste la opcion 9");
+                    break;
+                case 10:
+                    break;
+                case 11:
                     break;
                 case 0:
-                    System.out.println("Elegiste la opcion 0");
                     System.out.println("Cerrando sesion...");
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     iniciarSesion();
                     break;
             }
         }while(opcion != 0);
+    }
+
+    private void menuRegistrarLibro() {
+        Scanner scanner = new Scanner(System.in);
+        int opcionMenuRegistrarLibro = 0;
+        boolean esDatoValido = false;
+
+        do {
+            System.out.println("\nRegistrar libro");
+            System.out.println("Ingresa el tipo de libro que deseas registrar");
+            System.out.println("1. Acción");
+            System.out.println("2. Comedia");
+            System.out.println("3. Terror");
+            System.out.println("4. Salir");
+
+            while (!esDatoValido) {
+                try {
+                    opcionMenuRegistrarLibro = scanner.nextInt();
+
+                    if (opcionMenuRegistrarLibro > 4 || opcionMenuRegistrarLibro < 1) {
+                        throw new InputMismatchException();
+                    }
+                    esDatoValido = true;
+                } catch (InputMismatchException error) {
+                    System.out.println("Ingresaste un valor incorrecto, intenta de nuevo");
+                } finally {
+                    scanner.nextLine();
+                }
+            }
+
+            esDatoValido = false;
+
+            switch (opcionMenuRegistrarLibro) {
+                case 1:
+                    System.out.println("Accion");
+                    Libreria.registrarLibroAccion();
+                    break;
+                case 2:
+                    System.out.println("Comedia");
+                    Libreria.registrarLibroComedia();
+                    break;
+                case 3:
+                    System.out.println("Terror");
+                    Libreria.registrarLibroTerror();
+                    break;
+            }
+
+        } while(opcionMenuRegistrarLibro != 4);
+    }
+
+    private void menuEliminarLibro() {
+        Scanner scanner = new Scanner(System.in);
+        int opcionMenuEliminarLibro = 0;
+        boolean esDatoValido = false;
+
+        do {
+            System.out.println("\nEliminar libro");
+            System.out.println("Ingresa el tipo de libro que deseas eliminar");
+            System.out.println("1. Acción");
+            System.out.println("2. Comedia");
+            System.out.println("3. Terror");
+            System.out.println("4. Salir");
+
+            while (!esDatoValido) {
+                try {
+                    opcionMenuEliminarLibro = scanner.nextInt();
+
+                    if (opcionMenuEliminarLibro > 4 || opcionMenuEliminarLibro < 1) {
+                        throw new InputMismatchException();
+                    }
+                    esDatoValido = true;
+                } catch (InputMismatchException error) {
+                    System.out.println("Ingresaste un valor incorrecto, intenta de nuevo");
+                } finally {
+                    scanner.nextLine();
+                }
+            }
+
+            esDatoValido = false;
+
+            switch (opcionMenuEliminarLibro) {
+                case 1:
+                    System.out.println("Accion");
+                    Libreria.eliminarLibroAccion();
+                    break;
+                case 2:
+                    System.out.println("Comedia");
+                    Libreria.eliminarLibroComedia();
+                    break;
+                case 3:
+                    System.out.println("Terror");
+                    Libreria.eliminarLibroTerror();
+                    break;
+            }
+
+        } while(opcionMenuEliminarLibro != 4);
+    }
+
+    private void menuMostrarLibroTerror() {
+        Scanner scanner = new Scanner(System.in);
+        int opcionMenuEliminarLibro = 0;
+        boolean esDatoValido = false;
+
+        do {
+            System.out.println("\nMostrar libro");
+            System.out.println("Ingresa el tipo de libro que deseas mostrar");
+            System.out.println("1. Acción");
+            System.out.println("2. Comedia");
+            System.out.println("3. Terror");
+            System.out.println("4. Salir");
+
+            while (!esDatoValido) {
+                try {
+                    opcionMenuEliminarLibro = scanner.nextInt();
+
+                    if (opcionMenuEliminarLibro > 4 || opcionMenuEliminarLibro < 1) {
+                        throw new InputMismatchException();
+                    }
+                    esDatoValido = true;
+                } catch (InputMismatchException error) {
+                    System.out.println("Ingresaste un valor incorrecto, intenta de nuevo");
+                } finally {
+                    scanner.nextLine();
+                }
+            }
+
+            esDatoValido = false;
+
+            switch (opcionMenuEliminarLibro) {
+                case 1:
+                    System.out.println("Accion");
+                    Libreria.mostrarLibroAccion();
+                    break;
+                case 2:
+                    System.out.println("Comedia");
+                    Libreria.mostrarLibroComedia();
+                    break;
+                case 3:
+                    System.out.println("Terror");
+                    Libreria.mostrarLibroTerror();
+                    break;
+            }
+
+        } while(opcionMenuEliminarLibro != 4);
     }
 
     private void mostrarMenuGerente() {
@@ -223,72 +326,54 @@ public class Menu {
             switch (opcion) {
 
                 case 1:
-                    System.out.println("Elegiste la opcion 1");
                     libreria.registrarCliente();
                     break;
                 case 2:
-                    System.out.println("Elegiste la opcion 2");
                     libreria.registrarAsistente();
                     break;
                 case 3:
-                    System.out.println("Elegiste la opcion 3");
                     libreria.registrarGerente();
                     break;
                 case 4:
-                    System.out.println("Elegiste la opcion 4");
-                    libreria.registrarLibros();
+                    menuRegistrarLibro();
                     break;
                 case 5:
-                    System.out.println("Elegiste la opcion 5");
                     libreria.mostrarClientes();
                     break;
                 case 6:
-                    System.out.println("Elegiste la opcion 6");
                     libreria.mostrarAsistentes();
                     break;
                 case 7:
-                    System.out.println("Elegiste la opcion 7");
                     libreria.mostrarGerentes();
                     break;
                 case 8:
-                    System.out.println("Elegiste la opcion 8");
                     libreria.mostrarLibros();
                     break;
                 case 9:
-                    System.out.println("Elegiste la opcion 9");
                     break;
                 case 10:
-                    System.out.println("Elegiste la opcion 10");
                     break;
                 case 11:
-                    System.out.println("Elegiste la opcion 11");
                     break;
                 case 12:
-                    System.out.println("Elegiste la opcion 12");
                     break;
                 case 13:
-                    System.out.println("Elegiste la opcion 13");
                     libreria.eliminarClientes();
                     break;
                 case 14:
-                    System.out.println("Elegiste la opcion 14");
                     libreria.eliminarAsistentes();
                     break;
                 case 15:
-                    System.out.println("Elegiste la opcion 15");
                     libreria.eliminarGerentes();
                     break;
                 case 16:
-                    System.out.println("Elegiste la opcion 16");
+                    menuEliminarLibro();
                     break;
                 case 17:
-                    System.out.println("Elegiste la opcion 17");
                     break;
                 case 18:
-                    System.out.println("Elegiste la opcion 18");
                     break;
                 case 0:
-                    System.out.println("Elegiste la opcion 0");
                     System.out.println("Cerrando sesion...");
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     iniciarSesion();

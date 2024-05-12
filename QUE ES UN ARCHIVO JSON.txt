@@ -1,0 +1,13 @@
+QUE ES UN ARCHIVO JSON:
+
+Entendí que un archivo JSON, o JavaScript Object Notation, es una herramienta fundamental en el desarrollo web y la programación en general. Con JSON, podemos almacenar y compartir datos de manera estructurada y legible tanto para humanos como para máquinas.
+
+Lo que he captado es que JSON tiene una sintaxis sencilla y fácil de entender. Consta de pares clave-valor, donde cada clave está asociada a un valor específico. Esto hace que sea muy legible y fácil de trabajar.
+
+Además, JSON puede representar una variedad de tipos de datos, desde números y cadenas hasta booleanos y matrices. Es interesante cómo se integra tan bien con JavaScript, lo que lo convierte en una opción poderosa para el desarrollo web.
+
+Se menciona también que JSON es ampliamente utilizado en Internet, desde API hasta archivos de configuración e incluso en juegos. Esto se debe a su ligereza y facilidad de uso.
+
+Una característica importante es su capacidad para estructurar datos de forma anidada, lo que significa que los objetos JSON pueden contener otros objetos o matrices. Esto permite una organización jerárquica de la información, lo cual es muy útil en el desarrollo de aplicaciones complejas.
+
+En resumen, un archivo JSON es una forma estándar y eficiente de representar datos estructurados. Es versátil, fácil de manipular y ampliamente utilizado en la programación moderna.
