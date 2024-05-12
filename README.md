@@ -5,10 +5,10 @@ Este repositorio contiene un proyecto para la gestión de una librería. El proy
 ## Funcionalidades Implementadas
 
 1. **Registro de Libros:**  
-   - Se puede registrar tres tipos de libros: novelas, ensayos y poesía.
+   - Se puede registrar tres tipos de libros de terror
 
 2. **Eliminación de Libros:**  
-   - Permite eliminar libros de la base de datos.
+   - Permite eliminar libros
 
 3. **Listado General:**  
    - Proporciona un listado completo de todos los libros registrados en la librería.
