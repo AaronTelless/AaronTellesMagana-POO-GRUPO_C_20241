@@ -6,6 +6,5 @@ public class Main {
         Libreria libreria = new Libreria(true);
         Menu menu = new Menu();
         menu.iniciarSesion();
-
     }
 }
